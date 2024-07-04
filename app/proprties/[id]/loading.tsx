@@ -1,5 +1,5 @@
-import styles from "./styling.module.css";
 import { Container } from "@mui/material";
+import styles from "./styling.module.css";
 const loading = function () {
   return (
     <Container>

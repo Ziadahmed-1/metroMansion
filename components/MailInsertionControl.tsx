@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  Stack,
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Alert,
-} from "@mui/material";
-import { motion } from "framer-motion";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useRef, useState } from "react";
+import AlertMsg from "./AlertMsg";
 
 function MailInsertionControl() {
   const [error, setError] = useState("");
@@ -32,15 +25,12 @@ function MailInsertionControl() {
     <Stack mt={1} spacing={2} direction="row">
       <Box bgcolor="white" px={2} className="w-fit rounded-xl">
         {showAlert && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Alert className="fixed z-50 left-auto top-6" severity="success">
-              Subscription successful! Thank you.
-            </Alert>
-          </motion.div>
+          <div className="fixed z-50 left-auto top-6">
+            <AlertMsg
+              text="Subscription successful! Thank you."
+              type="success"
+            />
+          </div>
         )}
 
         <TextField

@@ -1,6 +1,5 @@
 import { Container, Paper, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
 
 function page() {
   const team = [

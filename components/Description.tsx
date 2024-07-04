@@ -19,7 +19,10 @@ function Description({ description }) {
   return (
     <Stack direction="row">
       {" "}
-      <Typography component="h2" variant="body1">
+      <Typography
+        component="h2"
+        sx={{ typography: { xs: "body1", md: "body" } }}
+      >
         {view}
         {expandOpened ? (
           <Typography

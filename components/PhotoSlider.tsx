@@ -1,15 +1,15 @@
 "use client";
-import React from "react";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 const divStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   backgroundSize: "cover",
   height: "600px",
+  width: "auto",
 };
 const properties = {
   prevArrow: (
@@ -25,7 +25,7 @@ const PhotoSlide = ({ images }) => {
     <div className="slide-container mt-4  ">
       <Slide {...properties}>
         {images.map((image, index) => (
-          <div key={index}>
+          <div key={index} className="h-[22rem] md:h-[34rem]">
             <div
               style={{ ...divStyle, backgroundImage: `url(${image.url})` }}
             ></div>

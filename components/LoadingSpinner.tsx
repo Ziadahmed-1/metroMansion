@@ -1,6 +1,6 @@
 import "@/app/globals.css";
 import { Container } from "@mui/material";
-const loading = function () {
+const LoadingSpinner = function () {
   return (
     <Container>
       <div className="flex my-auto mt-52 justify-center items-center">
@@ -21,4 +21,4 @@ const loading = function () {
   );
 };
 
-export default loading;
+export default LoadingSpinner;

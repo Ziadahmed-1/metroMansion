@@ -44,7 +44,6 @@ const TiltCard = ({ card }) => {
     x.set(0);
     y.set(0);
   };
-  console.log(card.src);
   return (
     <motion.div
       initial="hidden"

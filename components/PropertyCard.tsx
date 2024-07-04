@@ -1,8 +1,8 @@
-import { Paper, Typography, Stack, Rating } from "@mui/material";
-import Image from "next/image";
-import KingBedIcon from "@mui/icons-material/KingBed";
-import BathtubIcon from "@mui/icons-material/Bathtub";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import BathtubIcon from "@mui/icons-material/Bathtub";
+import KingBedIcon from "@mui/icons-material/KingBed";
+import { Paper, Rating, Stack, Typography } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 
 function PropertyCard({ property }) {
@@ -29,7 +29,7 @@ function PropertyCard({ property }) {
       sx={{ width: { xs: 250, md: 400 } }}
     >
       <Image
-        className="h-64"
+        className="h-56 md:h-64"
         alt="property image"
         src={property.coverPhoto.url}
         width={400}
@@ -50,13 +50,13 @@ function PropertyCard({ property }) {
           <Stack gap={0.6} direction="row">
             <KingBedIcon />
             <Typography component="p" variant="body1" fontWeight={700}>
-              {property.rooms}
+              {property.rooms || 1}
             </Typography>
           </Stack>
           <Stack gap={0.6} direction="row">
             <BathtubIcon />
             <Typography component="p" variant="body1" fontWeight={700}>
-              {property.baths}
+              {property.baths || 1}
             </Typography>
           </Stack>
         </Stack>

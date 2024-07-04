@@ -1,33 +1,45 @@
-import { Typography, Box, Stack } from "@mui/material";
-import React from "react";
-import PropertyCard from "./PropertyCard";
+"use client";
+import "@/app/globals.css";
+import PropertyCard from "@/components/PropertyCard";
+import { Box, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
 const options = {
   method: "GET",
   headers: {
-    "x-rapidapi-key": "19c3dfc052mshde51ad4655f3c6ep1b6885jsn5505e15d731a",
+    "x-rapidapi-key": "2322a1681bmsh10ca76e689ff844p19faa6jsn929ecd5397f8",
     "x-rapidapi-host": "bayut.p.rapidapi.com",
   },
 };
 
-async function PropriesSection() {
-  let properties = [];
+function PropriesSection({ initialProperties }) {
+  const [properties, setProperties] = useState(initialProperties || []);
 
-  const res1 = await fetch(
-    "https://bayut.p.rapidapi.com/properties/list?locationExternalIDs=5002%2C6020&hitsPerPage=9&page=0&lang=en&sort=city-level-score&categoryExternalID=4",
-    options
-  );
-  const res2 = await fetch(
-    "https://bayut.p.rapidapi.com/properties/list?locationExternalIDs=5002%2C6020&purpose=for-sale&hitsPerPage=25&page=0&lang=en&sort=city-level-score&rentFrequency=monthly&categoryExternalID=4",
-    options
-  );
+  useEffect(() => {
+    if (properties.length === 0) {
+      // Fallback fetching data client-side
+      const fetchData = async () => {
+        const res1 = await fetch(
+          "https://bayut.p.rapidapi.com/properties/list?locationExternalIDs=5002%2C6020&hitsPerPage=9&page=0&lang=en&sort=city-level-score&categoryExternalID=4",
+          options
+        );
+        const res2 = await fetch(
+          "https://bayut.p.rapidapi.com/properties/list?locationExternalIDs=5002%2C6020&purpose=for-sale&hitsPerPage=25&page=0&lang=en&sort=city-level-score&rentFrequency=monthly&categoryExternalID=4",
+          options
+        );
 
-  const data1 = await res1.json();
-  const data2 = await res2.json();
-  const forRentData = await data1.hits.slice(0, 6);
-  const forSaleData = await data2.hits.slice(0, 6);
-  properties.push(...forRentData, ...forSaleData);
+        const data1 = await res1.json();
+        const data2 = await res2.json();
+        const forRentData = data1.hits.slice(0, 6);
+        const forSaleData = data2.hits.slice(0, 6);
+        setProperties([...forRentData, ...forSaleData]);
+      };
+      fetchData();
+    }
+  }, []);
+
   return (
-    <Box color="#eee">
+    <Box color="#eee" component="aside">
       <Typography
         component="h2"
         sx={{ typography: { xs: "h4", md: "h3" } }}
@@ -39,12 +51,45 @@ async function PropriesSection() {
         Explore Our Latest Listings
       </Typography>
       <Stack direction="row" justifyContent="center" gap={2} flexWrap="wrap">
-        {properties.map((property) => (
-          <PropertyCard key={property.externalID} property={property} />
-        ))}
+        {properties.length > 0 ? (
+          properties.map((property) => (
+            <PropertyCard key={property.externalID} property={property} />
+          ))
+        ) : (
+          <div className="loader my-10"></div>
+        )}
       </Stack>
     </Box>
   );
+}
+
+export async function getServerSideProps() {
+  let properties = [];
+
+  try {
+    const res1 = await fetch(
+      "https://bayut.p.rapidapi.com/properties/list?locationExternalIDs=5002%2C6020&hitsPerPage=9&page=0&lang=en&sort=city-level-score&categoryExternalID=4",
+      options
+    );
+    const res2 = await fetch(
+      "https://bayut.p.rapidapi.com/properties/list?locationExternalIDs=5002%2C6020&purpose=for-sale&hitsPerPage=25&page=0&lang=en&sort=city-level-score&rentFrequency=monthly&categoryExternalID=4",
+      options
+    );
+
+    const data1 = await res1.json();
+    const data2 = await res2.json();
+    const forRentData = data1.hits.slice(0, 6);
+    const forSaleData = data2.hits.slice(0, 6);
+    properties = [...forRentData, ...forSaleData];
+  } catch (error) {
+    console.error("Error fetching properties:", error);
+  }
+
+  return {
+    props: {
+      initialProperties: properties,
+    },
+  };
 }
 
 export default PropriesSection;

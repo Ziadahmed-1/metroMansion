@@ -3,7 +3,6 @@ import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import AnimatedCounter from "./AnimatedCounter";
 import AnimatedHeroText from "./AnimatedHeroText";
-import { get, update } from "@/prisma";
 
 const statsData = [
   { number: 3200, firstLine: "Properties", secondLine: "Sold" },

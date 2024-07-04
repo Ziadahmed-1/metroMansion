@@ -8,7 +8,7 @@ import PropriesSection from "@/components/PropriesSection";
 
 export default function Home() {
   return (
-    <main
+    <div
       style={{
         background:
           "radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)",
@@ -26,6 +26,6 @@ export default function Home() {
         <BackToTop />
       </Container>
       <Footer />
-    </main>
+    </div>
   );
 }

@@ -1,5 +1,4 @@
-import { Typography, Grid, Stack, Avatar } from "@mui/material";
-import React from "react";
+import { Avatar, Grid, Stack, Typography } from "@mui/material";
 Typography;
 function ContactInfo({ property }) {
   const contactData = [
@@ -38,7 +37,10 @@ function ContactInfo({ property }) {
         </Typography>
         <Avatar
           alt="agency logo"
-          sx={{ md: { width: 56, height: 56 } }}
+          sx={{
+            width: { xs: 40, md: 56 },
+            height: { xs: 40, md: 56 },
+          }}
           src={property.agency.logo.url}
           className="shadow-xl"
         />
@@ -66,7 +68,10 @@ function ContactInfo({ property }) {
             >
               <Avatar
                 alt={item.name}
-                sx={{ width: 56, height: 56 }}
+                sx={{
+                  width: { xs: 40, md: 56 },
+                  height: { xs: 40, md: 56 },
+                }}
                 src={item.img}
                 className="shadow-xl"
               />

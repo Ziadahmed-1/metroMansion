@@ -18,7 +18,7 @@ import React, { useEffect, useRef, useState } from "react";
 const options = {
   method: "GET",
   headers: {
-    "x-rapidapi-key": "19c3dfc052mshde51ad4655f3c6ep1b6885jsn5505e15d731a",
+    "x-rapidapi-key": "2322a1681bmsh10ca76e689ff844p19faa6jsn929ecd5397f8",
     "x-rapidapi-host": "bayut.p.rapidapi.com",
   },
 };

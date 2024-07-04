@@ -6,11 +6,12 @@ import PhotoSlider from "@/components/PhotoSlider";
 import ContactInfo from "@/components/ContactInfo";
 import { notFound } from "next/navigation";
 import ToggleProprtyList from "@/components/ToggleProprtyList";
+import PropertyImage from "@/components/PropertyImage";
 
 const options = {
   method: "GET",
   headers: {
-    "x-rapidapi-key": "19c3dfc052mshde51ad4655f3c6ep1b6885jsn5505e15d731a",
+    "x-rapidapi-key": "2322a1681bmsh10ca76e689ff844p19faa6jsn929ecd5397f8",
     "x-rapidapi-host": "bayut.p.rapidapi.com",
   },
 };
@@ -26,42 +27,65 @@ const page = async function ({ params }) {
   const property = await res.json();
 
   return (
-    <Container className="mb-10">
+    <Container className="mb-10 ">
       <Stack className="relative" justifyContent="center" direction="column">
-        <Image
-          priority
-          className="mb-8 h-[34rem]"
-          alt="property image"
-          src={property.coverPhoto.url}
-          width={1200}
-          height={500}
-          placeholder="blur"
-          blurDataURL="https://ajsrp.com/wp-content/uploads/2022/10/placeholder.png"
-        />
-        <ToggleProprtyList />
+        <PropertyImage src={property.coverPhoto.url} />
+        <ToggleProprtyList property={property} />
         <Typography
           component="h2"
           mb={4}
           className="font-semibold"
           textAlign="center"
-          sx={{ typography: { xs: "h5", md: "h4" } }}
+          sx={{ typography: { xs: "h6", md: "h4" } }}
         >
           {property.title}
         </Typography>
-        <Typography component="h2" textAlign="start" variant="h4">
+        <Typography
+          className="mb-4"
+          component="h2"
+          textAlign="start"
+          sx={{
+            typography: { xs: "h6", md: "h4" },
+            fontWeight: { xs: 600, md: 100 },
+          }}
+        >
           Description
         </Typography>
         <Description description={property.description} />
       </Stack>
-      <Typography mt={8} component="h2" textAlign="start" variant="h4">
+      <Typography
+        mt={8}
+        component="h2"
+        textAlign="start"
+        sx={{
+          typography: { xs: "h6", md: "h4" },
+          fontWeight: { xs: 600, md: 100 },
+        }}
+      >
         Details
       </Typography>
       <Details property={property} />
-      <Typography mt={8} component="h2" textAlign="start" variant="h4">
+      <Typography
+        mt={8}
+        component="h2"
+        textAlign="start"
+        sx={{
+          typography: { xs: "h6", md: "h4" },
+          fontWeight: { xs: 600, md: 100 },
+        }}
+      >
         Gallery
       </Typography>
       <PhotoSlider images={property.photos} />
-      <Typography mt={8} component="h2" textAlign="start" variant="h4">
+      <Typography
+        mt={8}
+        component="h2"
+        textAlign="start"
+        sx={{
+          typography: { xs: "h6", md: "h4" },
+          fontWeight: { xs: 600, md: 100 },
+        }}
+      >
         Contact Info
       </Typography>
       <ContactInfo property={property} />

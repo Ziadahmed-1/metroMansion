@@ -1,5 +1,6 @@
 "use client";
 import logo from "@/public/doubleMLogo.png";
+import LoginIcon from "@mui/icons-material/Login";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
@@ -13,12 +14,11 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import * as React from "react";
-import LoginIcon from "@mui/icons-material/Login";
-import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import * as React from "react";
 
 const pages = [
   ["Home", ""],
@@ -51,12 +51,18 @@ function ResponsiveAppBar() {
   };
 
   function handleLogOut() {
+    signOut({ callbackUrl: "/", redirect: true });
     handleCloseUserMenu();
-    signOut();
   }
 
   function redirectToProprties() {
+    handleCloseUserMenu();
     router.push("/myProprties");
+  }
+
+  function handleSignIn() {
+    signIn(undefined, { callbackUrl: "/", redirect: true });
+    handleCloseUserMenu();
   }
 
   const settings = [
@@ -151,20 +157,19 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <Image
               src={logo}
               alt="Logo"
               width={50}
               height={50}
-              className="rounded-lg"
+              className="rounded-lg  "
             />
           </Box>
           <Typography
             variant="overline"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -245,7 +250,7 @@ function ResponsiveAppBar() {
             </Box>
           ) : (
             <Button
-              onClick={() => signIn()}
+              onClick={handleSignIn}
               sx={{
                 my: 2,
                 mx: 1,
@@ -260,7 +265,14 @@ function ResponsiveAppBar() {
               }}
             >
               <LoginIcon />
-              <Typography sx={{ fontFamily: "inherit" }}>Sign in</Typography>
+              <Typography
+                sx={{
+                  fontFamily: "inherit",
+                  display: { xs: "none", sm: "block" },
+                }}
+              >
+                Sign in
+              </Typography>
             </Button>
           )}
         </Toolbar>
